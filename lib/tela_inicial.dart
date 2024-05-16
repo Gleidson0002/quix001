@@ -14,7 +14,7 @@ class TelaInicial extends StatelessWidget {
             ),
             fit: BoxFit.cover,
           ),
-        ),   
+        ),  
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

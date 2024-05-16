@@ -14,12 +14,15 @@ class _QuizpageState extends State<Quizpage> {
 
     Question('Qual é a capital da Austrália?', 'Canberra', 'lib/assets/image/australia.png',
     ['Sydney','Melbourne','Canberra'],),
-    Question('Você acredita na valorização da virtude sobre os prazeres sensoriais?', 'Não','https://tse2.mm.bing.net/th?id=OIP.p9yfhNkiINRPMY8enHasmAAAAA&pid=15.1',
-    ['Sim','Não','talvez']),
-    Question('Acredita que as emoções não devem ser controladas para alcançar a serenidade?', 'Não','https://www.dexerto.com/cdn-image/wp-content/uploads/2024/04/10/berserk-return-date.jpg?width=3840&quality=60&format=auto',
-    ['Sim','Não','talvez']),
-    Question('Você concorda em enfatizar a importância de viver de acordo com a razão e a virtude?', 'Sim', 'https://i.redd.it/lklft848moxa1.png',
-   ['Sim','Não','talvez'] ),
+
+    Question('Qual o maior deserto do mundo?', 'Deserto da Antártica','lib/assets/image/piramide1.png',
+    ['Deserto da Arábia','Deserto da Antártica','Deserto do Saara']),
+
+    Question('Em qual continente fica o Monte Kilimanjaro?', 'África','lib/assets/image/globe.png',
+    ['Ásia','América do Sul','África']),
+
+    Question('Qual é o rio mais longo do mundo?', 'Rio Nilo', 'lib/assets/image/rio1.png',
+   ['Rio Amazonas','Rio Yangtzé','Rio Nilo'] ),
   ];
 
   void checkAnswer(String userAnswer) {
