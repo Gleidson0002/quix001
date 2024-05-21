@@ -10,35 +10,59 @@ class TelaResultado extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+  String getImageAsset(){
+ if (pontuacao <= 30 ){
+   return 'lib/assets/image/sabep.png';
+ }
+ if (pontuacao > 30 && pontuacao < 60){
+  return 'lib/assets/image/sabemm.png';
+ }
+  else{
+  return 'lib/assets/image/sabem.png';
+ }
+
+  }
     return Scaffold(
-        appBar: AppBar(title: Text('Tela de Resultado', 
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(title: Text('Tela de Resultado', 
         style: TextStyle(fontSize: 24.0, color: Colors.white), ),
-        backgroundColor: const Color.fromARGB(255, 36, 37, 43),
+        backgroundColor:  Colors.transparent,
          automaticallyImplyLeading: false,
           centerTitle: true,),
-        backgroundColor: const Color.fromARGB(255, 36, 37, 43),
-        body: Center(
-          
+        body: Container(
+        width: double.infinity,
+        height: double.infinity,
+         decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage(
+              'lib/assets/image/tela1.png',
+            ),
+            fit: BoxFit.cover,
+          ),
+        ),  
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image(
-                image:NetworkImage('https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Flag_of_the_People%27s_Republic_of_China.svg/640px-Flag_of_the_People%27s_Republic_of_China.svg.png',
-                
-                ),
-              ),
+              SizedBox(height: 20.0),
+                 Image.asset(
+              getImageAsset(),
+              width: 400,
+              height: 400,
+            ),
+              
               Text(
                 'Você completou o quiz!',
                 style: TextStyle(fontSize: 24.0, color: Colors.white),
               ),
               SizedBox(height: 20.0),
               Text(
-                'Pontos: $pontuacao de $totalperguntas',
+                'Pontos: $pontuacao de 100',
                 style: TextStyle(fontSize: 24.0, color: Colors.white),
               ),
               SizedBox(height: 20.0),
               ElevatedButton(
-                style: ElevatedButton.styleFrom(backgroundColor: const Color.fromARGB(255, 73, 66, 66),),
+                style: ElevatedButton.styleFrom(backgroundColor:Color.fromARGB(255, 25, 3, 75),),
                   onPressed: () { 
                     resetquiz();
                     Navigator.pop(context);
@@ -50,7 +74,8 @@ class TelaResultado extends StatelessWidget {
                   child: Text('Voltar',style: TextStyle(fontSize: 24.0,color: Colors.white),)),
             ],
           ),
-        ));
+        )
+        );
   }
 }
 

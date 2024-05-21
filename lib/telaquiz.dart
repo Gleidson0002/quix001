@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'tela_result.dart';
+import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 class Quizpage extends StatefulWidget {
   @override
   _QuizpageState createState() => _QuizpageState();
@@ -23,6 +24,25 @@ class _QuizpageState extends State<Quizpage> {
 
     Question('Qual é o rio mais longo do mundo?', 'Rio Nilo', 'lib/assets/image/rio1.png',
    ['Rio Amazonas','Rio Yangtzé','Rio Nilo'] ),
+    //
+    Question('Qual é o país mais populoso do mundo?', 'China', 'lib/assets/image/population.png',
+   ['China','India','Estados Unidos'] ),
+    
+    Question('Qual é o nome do maior oceano da Terra?', 'Oceano Pacífico', 'lib/assets/image/tuba.png',
+   ['Oceano Indico','Oceano Pacífico','Oceano Atlantico'] ),
+    
+    Question('Qual país tem mais ilhas no mundo?', 'Suécia', 'lib/assets/image/ilha.png',
+   ['Suécia','Filipinas','Noruega'] ),
+
+    Question('Qual é a capital do Canadá?', 'Ottawa', 'lib/assets/image/canada.png',
+   ['Toronto','Vancouver','Ottawa'] ),
+
+    Question('Qual a ilha mais famosa do Japão?', 'Honshu (本州)', 'lib/assets/image/japao.png',
+   ['Kyushu (九州)','Hokkaido (北海道)','Honshu (本州)'] ),
+
+    Question('Qual foi o maior imperio do mundo?', 'Império Mongol', 'lib/assets/image/napoleao.png',
+   ['Império Romano','Império Mongol','Império Chines'] ),
+
   ];
 
   void checkAnswer(String userAnswer) {
@@ -30,7 +50,7 @@ class _QuizpageState extends State<Quizpage> {
 
     setState(() {
       if (userAnswer == answer) {
-        score++;
+        score+=10;
       }
       if (questionIndex < questions.length - 1) {
         questionIndex++;
@@ -49,14 +69,16 @@ class _QuizpageState extends State<Quizpage> {
     setState(() {
       questionIndex = 0;
       score = 0;
+      coutindex = 1;
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
         appBar: AppBar(
-          backgroundColor: Color.fromARGB(255, 25, 3, 75),
+          backgroundColor: Colors.transparent,
           title: Text('Perguntas: $coutindex / ${questions.length}',style: TextStyle(fontSize: 25.0, color: Colors.white),),
         centerTitle: true,
         automaticallyImplyLeading: false,
@@ -68,13 +90,15 @@ class _QuizpageState extends State<Quizpage> {
             image: AssetImage('lib/assets/image/tela1.png'),
             fit: BoxFit.cover,
           ),
-        ),   
-        child: Column(
+        ), 
+        
+        child: Column( 
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            const Spacer(),
             Expanded(
               flex: 7,
-              child: Image.network(
+              child: Image.asset(
               questions[questionIndex].AssetImage,
             ),
             ),
@@ -107,7 +131,7 @@ class _QuizpageState extends State<Quizpage> {
            Container(
              padding: EdgeInsets.all(20.0),
              child: ElevatedButton(
-              child: Text('resetar', style: TextStyle(fontSize: 20.0,color: Colors.white),),
+              child: Text('Resetar', style: TextStyle(fontSize: 20.0,color: Colors.white),),
               onPressed: () =>resetquiz(),
               style: ElevatedButton.styleFrom(backgroundColor: Color.fromARGB(166, 42, 11, 216)),
             )

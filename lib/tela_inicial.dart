@@ -6,20 +6,24 @@ class TelaInicial extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: NetworkImage(
-              'https://i.kym-cdn.com/photos/images/newsfeed/002/674/141/5ca.jpg',
+            image: AssetImage(
+              'lib/assets/image/tela.png',
             ),
             fit: BoxFit.cover,
           ),
         ),  
+
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
-              padding: EdgeInsets.all(350.0),
+             Image.asset(
+              'lib/assets/image/logoinc11.png',
+              width: 450,
+              height: 450,
             ),
             Align(
               child: Padding(
@@ -27,7 +31,7 @@ class TelaInicial extends StatelessWidget {
                     16.0), // Adiciona um espaçamento ao redor do botão
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color.fromARGB(255, 73, 66, 66),
+                    backgroundColor: Color.fromARGB(255, 25, 3, 75),
                   ),
                   onPressed: () {
                      Navigator.push(context, 
