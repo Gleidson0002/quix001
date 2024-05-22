@@ -10,6 +10,8 @@ class _QuizpageState extends State<Quizpage> {
   int questionIndex = 0;
   int score = 0;
   int coutindex = 1;
+  Color textColor = Colors.white;
+  bool isAswered = false;
 
   List<Question> questions = [
 
@@ -46,23 +48,35 @@ class _QuizpageState extends State<Quizpage> {
   ];
 
   void checkAnswer(String userAnswer) {
-  String answer = questions[questionIndex].answer;
-
+    String answer = questions[questionIndex].answer;
+    if(isAswered) return;
+  
     setState(() {
+      isAswered = true;
       if (userAnswer == answer) {
         score+=10;
+        textColor = Colors.green;
+      }else {
+        textColor = Colors.red;
       }
-      if (questionIndex < questions.length - 1) {
+        });
+
+    Future.delayed(Duration(seconds: 1), () {
+      setState(() {
+        textColor = Colors.white;
+         if (questionIndex < questions.length - 1) {
         questionIndex++;
         coutindex++;
-      }else {
-        Navigator.push(context, 
-        MaterialPageRoute(builder: (context) => TelaResultado(score, questions.length,resetquiz)),
+      } else {
+        Navigator.push(
+         context, 
+           MaterialPageRoute(builder: (context) => TelaResultado(score, questions.length,resetquiz)),
 
         ); 
      }
-    }
-   );
+     isAswered = false;
+      });
+   });
   }
 
   void resetquiz() {
@@ -70,6 +84,8 @@ class _QuizpageState extends State<Quizpage> {
       questionIndex = 0;
       score = 0;
       coutindex = 1;
+      textColor = Colors.white;
+      isAswered = false;
     });
   }
 
@@ -120,14 +136,13 @@ class _QuizpageState extends State<Quizpage> {
               children: questions[questionIndex].opcao.map((opcao) {
                 return ElevatedButton(
                   onPressed: () => checkAnswer(opcao),
-                  child: Text(opcao, style: TextStyle(fontSize: 25.0,color: Colors.white),),
-                  style: ElevatedButton.styleFrom(backgroundColor: Color.fromARGB(166, 42, 11, 216)),
-                 
+                  child: Text(
+                    opcao, style: TextStyle(fontSize: 25.0,color: textColor),),
+                  style: ElevatedButton.styleFrom(backgroundColor: Color.fromARGB(166, 42, 11, 216)),  
                 );
               }
-              ).toList(),
-              //
-            ),
+            ).toList(),         
+         ),
            Container(
              padding: EdgeInsets.all(20.0),
              child: ElevatedButton(
@@ -135,11 +150,11 @@ class _QuizpageState extends State<Quizpage> {
               onPressed: () =>resetquiz(),
               style: ElevatedButton.styleFrom(backgroundColor: Color.fromARGB(166, 42, 11, 216)),
             )
-           ),
-            
+           ),           
           ],
         )
-        ),);
+      ),
+    );
   }
 }
 
