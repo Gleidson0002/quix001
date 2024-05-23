@@ -10,7 +10,7 @@ class _QuizpageState extends State<Quizpage> {
   int questionIndex = 0;
   int score = 0;
   int coutindex = 1;
-  Color textColor = Colors.white;
+  Map<String, Color> buttonColors = {};
   bool isAswered = false;
 
   List<Question> questions = [
@@ -55,15 +55,16 @@ class _QuizpageState extends State<Quizpage> {
       isAswered = true;
       if (userAnswer == answer) {
         score+=10;
-        textColor = Colors.green;
+       buttonColors[userAnswer] = Colors.green;
       }else {
-        textColor = Colors.red;
+        buttonColors[userAnswer] = Colors.red;
+        buttonColors[answer] = Colors.green;
       }
         });
 
     Future.delayed(Duration(seconds: 1), () {
       setState(() {
-        textColor = Colors.white;
+        buttonColors = {};
          if (questionIndex < questions.length - 1) {
         questionIndex++;
         coutindex++;
@@ -80,12 +81,14 @@ class _QuizpageState extends State<Quizpage> {
   }
 
   void resetquiz() {
-    setState(() {
+    setState(() { 
+      if(isAswered) return;
       questionIndex = 0;
       score = 0;
       coutindex = 1;
-      textColor = Colors.white;
+      buttonColors = {};
       isAswered = false;
+     
     });
   }
 
@@ -137,12 +140,12 @@ class _QuizpageState extends State<Quizpage> {
                 return ElevatedButton(
                   onPressed: () => checkAnswer(opcao),
                   child: Text(
-                    opcao, style: TextStyle(fontSize: 25.0,color: textColor),),
-                  style: ElevatedButton.styleFrom(backgroundColor: Color.fromARGB(166, 42, 11, 216)),  
-                );
-              }
-            ).toList(),         
-         ),
+                    opcao,
+                     style: TextStyle(fontSize: 25.0, color: buttonColors[opcao] ?? Color.fromARGB(255, 255, 255, 255),),
+                  ), style: ElevatedButton.styleFrom( backgroundColor: Color.fromARGB(166, 42, 11, 216)),
+                    );
+              }).toList(),                
+                ),
            Container(
              padding: EdgeInsets.all(20.0),
              child: ElevatedButton(
