@@ -12,6 +12,9 @@ class _QuizpageState extends State<Quizpage> {
   int coutindex = 1;
   Map<String, Color> buttonColors = {};
   bool isAswered = false;
+  final int duracao = 10;
+ final CountDownController controle = CountDownController();
+
 
   List<Question> questions = [
 
@@ -24,17 +27,17 @@ class _QuizpageState extends State<Quizpage> {
     Question('Em qual continente fica o Monte Kilimanjaro?', 'África','lib/assets/image/globe.png',
     ['Ásia','América do Sul','África']),
 
-    Question('Qual é o rio mais longo do mundo?', 'Rio Nilo', 'lib/assets/image/rio1.png',
+    Question('Qual é o rio mais longo do mundo?', 'Rio Amazonas', 'lib/assets/image/rio1.png',
    ['Rio Amazonas','Rio Yangtzé','Rio Nilo'] ),
     //
-    Question('Qual é o país mais populoso do mundo?', 'China', 'lib/assets/image/population.png',
-   ['China','India','Estados Unidos'] ),
+    Question('Qual é o país mais populoso da Europa?', 'Rússia', 'lib/assets/image/population.png',
+   ['Alemanha','Rússia','Inglaterra'] ),
     
     Question('Qual é o nome do maior oceano da Terra?', 'Oceano Pacífico', 'lib/assets/image/tuba.png',
-   ['Oceano Indico','Oceano Pacífico','Oceano Atlantico'] ),
+   ['Oceano Indico','Oceano Pacífico','Oceano Atlântico'] ),
     
-    Question('Qual país tem mais ilhas no mundo?', 'Suécia', 'lib/assets/image/ilha.png',
-   ['Suécia','Filipinas','Noruega'] ),
+    Question('Qual país tem a maior extensão litoral do mundo?', 'Canadá', 'lib/assets/image/ilha.png',
+   ['Canadá','Brasil','Rússia'] ),
 
     Question('Qual é a capital do Canadá?', 'Ottawa', 'lib/assets/image/canada.png',
    ['Toronto','Vancouver','Ottawa'] ),
@@ -65,10 +68,11 @@ class _QuizpageState extends State<Quizpage> {
     Future.delayed(Duration(seconds: 1), () {
       setState(() {
         buttonColors = {};
+         controle.restart();
          if (questionIndex < questions.length - 1) {
         questionIndex++;
         coutindex++;
-      } else {
+      } else { 
         Navigator.push(
          context, 
            MaterialPageRoute(builder: (context) => TelaResultado(score, questions.length,resetquiz)),
@@ -88,7 +92,7 @@ class _QuizpageState extends State<Quizpage> {
       coutindex = 1;
       buttonColors = {};
       isAswered = false;
-     
+     controle.restart();
     });
   }
 
@@ -97,11 +101,53 @@ class _QuizpageState extends State<Quizpage> {
     return Scaffold(
       extendBodyBehindAppBar: true,
         appBar: AppBar(
+          automaticallyImplyLeading: false,
+          elevation: 0.0,
           backgroundColor: Colors.transparent,
-          title: Text('Perguntas: $coutindex / ${questions.length}',style: TextStyle(fontSize: 25.0, color: Colors.white),),
-        centerTitle: true,
-        automaticallyImplyLeading: false,
-        
+          title: Row(
+            children: [
+               Text('Perguntas: $coutindex / ${questions.length}',style: TextStyle(fontSize: 25.0, color: Colors.white),),
+                      
+            const Spacer(),
+            CircularCountDownTimer(
+              duration: duracao,
+              initialDuration: 0,
+              controller: controle,
+              width: 45,
+              height: 45,
+              ringColor: Colors.black,
+              fillColor: Color.fromARGB(255, 34, 41, 145),
+              backgroundColor: Colors.transparent,
+              strokeWidth: 10.0,
+              strokeCap: StrokeCap.round,
+              textStyle: const TextStyle(
+                fontSize: 20.0,
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
+              textFormat: CountdownTextFormat.S,
+              isReverse: true,
+              isReverseAnimation: true,
+              isTimerTextShown: true,
+              autoStart: true,
+              onStart: () {},
+              onComplete: () {
+                if (questionIndex < questions.length - 1) {
+                  setState(() {
+                    questionIndex++;
+                       coutindex++;
+                  }); 
+                  controle.restart();
+                } else {
+                 
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => TelaResultado(score, questions.length, resetquiz)));
+                }
+              },
+              onChange:(String timeStamp) {},
+            ),     
+            ]
+          ) 
         ),
          body: Container(
         decoration: BoxDecoration(
