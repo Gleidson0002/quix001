@@ -60,6 +60,37 @@ class TelaInicial extends StatelessWidget {
           ],
         ),
       ),
+     
+      floatingActionButton:  Align(
+            alignment: Alignment.bottomRight,
+            child: Padding(
+              padding: const EdgeInsets.all(2.0),
+              child: IconButton(
+                icon: Icon(Icons.info, size: 30.0, color: Colors.white),
+                onPressed: () {
+                  // Ação do botão ao ser pressionado
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        title: Text('Informações'),
+                        content: Text('Autor: Gleidson Sergio\nEmail: sergiogleidson98@gmail.com'),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: Text('OK!'),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                },
+              ),
+            ),
+          ),
+  
     );
   }
 }

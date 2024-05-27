@@ -12,7 +12,7 @@ class _QuizpageState extends State<Quizpage> {
   int coutindex = 1;
   Map<String, Color> buttonColors = {};
   bool isAswered = false;
-  final int duracao = 10;
+  final int duracao = 15;
  final CountDownController controle = CountDownController();
 
 
@@ -65,7 +65,7 @@ class _QuizpageState extends State<Quizpage> {
       }
         });
 
-    Future.delayed(Duration(seconds: 1), () {
+    Future.delayed(Duration(seconds: 1, milliseconds: 300), () {
       setState(() {
         buttonColors = {};
          controle.restart();
