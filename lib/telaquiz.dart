@@ -12,7 +12,7 @@ class _QuizpageState extends State<Quizpage> {
   int coutindex = 1;
   Map<String, Color> buttonColors = {};
   bool isAswered = false;
-  final int duracao = 15;
+  final int duracao = 10;
  final CountDownController controle = CountDownController();
 
 
@@ -42,7 +42,7 @@ class _QuizpageState extends State<Quizpage> {
     Question('Qual é a capital do Canadá?', 'Ottawa', 'lib/assets/image/canada.png',
    ['Toronto','Vancouver','Ottawa'] ),
 
-    Question('Qual a ilha mais famosa do Japão?', 'Honshu (本州)', 'lib/assets/image/japao.png',
+    Question('Qual a ilha mais famosa do Japão?', 'Honshu (本州)', 'lib/assets/image/Japao.png',
    ['Kyushu (九州)','Hokkaido (北海道)','Honshu (本州)'] ),
 
     Question('Qual foi o maior imperio do mundo?', 'Império Mongol', 'lib/assets/image/napoleao.png',
@@ -65,7 +65,7 @@ class _QuizpageState extends State<Quizpage> {
       }
         });
 
-    Future.delayed(Duration(seconds: 1, milliseconds: 300), () {
+    Future.delayed(Duration(seconds: 1), () {
       setState(() {
         buttonColors = {};
          controle.restart();
